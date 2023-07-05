@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
@@ -27,7 +28,7 @@ public class PautaControllerTest {
 
     @Test
     public void deve_retornar_nome_tamanho_erro() throws Exception {
-        var pautaDto = new PautaDto( null, "Pauta", LocalDate.now());
+        var pautaDto = new PautaDto( null, "Pauta", LocalDateTime.now(), null);
         mockMvc.perform(
                     post("/api/v1/pauta")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)

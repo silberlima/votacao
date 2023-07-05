@@ -5,7 +5,6 @@ import com.silber.votacaoapi.repository.PautaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -21,18 +20,17 @@ public class PautaService {
     }
 
     public Pauta abrirVotacao(Pauta pauta){
-/*
-        if(pauta.getAbertura().isBefore(LocalDateTime.now())){
-            throw new RuntimeException("Não é permitido data retroativa");
-        }
 
- */
         if(Objects.isNull(pauta.getAbertura())){
             pauta.setAbertura(LocalDateTime.now());
         }
 
         if (Objects.isNull(pauta.getEncerramento())){
             pauta.setEncerramento(LocalDateTime.now().plusMinutes(1));
+        }else{
+            if(LocalDateTime.now().isAfter(pauta.getEncerramento())){
+                throw new RuntimeException("Data de encerramento inválida");
+            }
         }
 
         return pautaRepository.save(pauta);

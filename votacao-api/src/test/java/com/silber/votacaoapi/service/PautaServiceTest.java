@@ -39,15 +39,15 @@ class PautaServiceTest {
 
 	@Test
 	void deve_retornar_erro_quando_data_menor_que_atual(){
-		var dataAnteiorAtual = LocalDateTime.now().minusDays(1);
-		Pauta pauta = new Pauta(null, "nova pauta", dataAnteiorAtual, null);
+		var dataEncerramentoAnteriorAtual = LocalDateTime.now().minusDays(1);
+		Pauta pauta = new Pauta(null, "nova pauta", null, dataEncerramentoAnteriorAtual);
 
-		var exception = Assertions.assertThrows(RuntimeException.class, () -> pautaService.salvar(pauta));
+		var exception = Assertions.assertThrows(RuntimeException.class, () -> pautaService.abrirVotacao(pauta));
 
 		/*Verifica se houve interação com o repository*/
 		Mockito.verifyNoInteractions(pautaRepository);
 
-		Assertions.assertEquals("Não é permitido data retroativa", exception.getMessage());
+		Assertions.assertEquals("Data de encerramento inválida", exception.getMessage());
 	}
 
 
