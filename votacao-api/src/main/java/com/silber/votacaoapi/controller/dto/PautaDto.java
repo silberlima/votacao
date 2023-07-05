@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -20,5 +21,6 @@ public class PautaDto {
     @NotBlank
     @Size(min = 3, max = 10, message = "Tamanho entre 3 e 10")
     private String nome;
-    private LocalDate dataCriacao;
+    private LocalDateTime abertura;
+    private LocalDateTime encerramento;
 }

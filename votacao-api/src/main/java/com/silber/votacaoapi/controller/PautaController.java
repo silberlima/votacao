@@ -2,6 +2,8 @@ package com.silber.votacaoapi.controller;
 
 import com.silber.votacaoapi.controller.dto.PautaDto;
 import com.silber.votacaoapi.domain.Pauta;
+import com.silber.votacaoapi.factory.PautaDtoFactory;
+import com.silber.votacaoapi.factory.PautaFactory;
 import com.silber.votacaoapi.service.PautaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +17,20 @@ public class PautaController {
     @Autowired
     private PautaService pautaService;
 
-    @PostMapping(value = "/", consumes = {"application/json"})
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private void salvarPauta(@Valid @RequestBody PautaDto pautaDto){
-        var pauta = pautaService.salvar(Pauta.builder()
-                .id(null)
-                .nome(pautaDto.getNome())
-                .dataCriacao(pautaDto.getDataCriacao())
-                .build());
+    private PautaDto salvarPauta(@Valid @RequestBody PautaDto pautaDto){
+        var pauta = pautaService.salvar(PautaFactory.buildFromDto(pautaDto));
 
+        return PautaDtoFactory.buildFromEntity(pauta);
+    }
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    private PautaDto abrirVotacao(@Valid @RequestBody PautaDto pautaDto){
+        var pauta = pautaService.abrirVotacao(PautaFactory.buildFromDto(pautaDto));
+
+        return PautaDtoFactory.buildFromEntity(pauta);
     }
 }
 

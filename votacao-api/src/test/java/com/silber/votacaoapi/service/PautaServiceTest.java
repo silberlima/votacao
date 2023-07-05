@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @SpringBootTest
 class PautaServiceTest {
@@ -23,7 +24,7 @@ class PautaServiceTest {
 
 	@Test
 	void deve_salvar_pauta() {
-		Pauta pautaAntesSalvar = new Pauta(null,"nova pauta", LocalDate.of(2023,10,3));
+		Pauta pautaAntesSalvar = new Pauta(null,"nova pauta", LocalDateTime.now(), null);
 		Pauta pautaAposSalvar = pautaAntesSalvar;
 		pautaAposSalvar.setId("1");
 
@@ -38,8 +39,8 @@ class PautaServiceTest {
 
 	@Test
 	void deve_retornar_erro_quando_data_menor_que_atual(){
-		var dataAnteiorAtual = LocalDate.now().minusDays(1);
-		Pauta pauta = new Pauta(null, "nova pauta", dataAnteiorAtual);
+		var dataAnteiorAtual = LocalDateTime.now().minusDays(1);
+		Pauta pauta = new Pauta(null, "nova pauta", dataAnteiorAtual, null);
 
 		var exception = Assertions.assertThrows(RuntimeException.class, () -> pautaService.salvar(pauta));
 

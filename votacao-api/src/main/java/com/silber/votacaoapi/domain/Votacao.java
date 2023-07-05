@@ -4,21 +4,27 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-@Document(collection = "pauta")
-public class Pauta {
+@Document(collection = "votacao")
+public class Votacao {
     @MongoId
     private String id;
-    private String nome;
-    private LocalDateTime abertura;
-    private LocalDateTime encerramento;
+
+    @DBRef
+    private Pauta pauta;
+
+    @DBRef
+    private Associado associado;
+
+    private String voto;
+
 }

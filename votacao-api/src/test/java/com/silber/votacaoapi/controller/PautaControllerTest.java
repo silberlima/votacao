@@ -30,7 +30,7 @@ public class PautaControllerTest {
         var pautaDto = new PautaDto( null, "Pauta", LocalDate.now());
         mockMvc.perform(
                     post("/api/v1/pauta")
-                        .contentType(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(objectMapper.writeValueAsString(pautaDto)))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath ("$.errors[?(@.fieldName == 'nome')].menssagem", Matchers.contains("Tamanho entre 3 e 10")));
