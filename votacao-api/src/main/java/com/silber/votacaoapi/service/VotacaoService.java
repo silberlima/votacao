@@ -24,8 +24,11 @@ public class VotacaoService {
 
 
         if(LocalDateTime.now().isBefore(votacao.getPauta().getAbertura()) || LocalDateTime.now().isAfter(votacao.getPauta().getEncerramento())){
-
             throw new RuntimeException("Periodo de votação inválido");
+        }
+
+        if(!votacao.getVoto().equals("NAO") && !votacao.getVoto().equals("SIM")){
+            throw new RuntimeException("O voto deve ser SIM ou NAO");
         }
 
         var votacaoSalva = votacaoRepository.findByAssociadoAndPauta(votacao.getAssociado(), votacao.getPauta());
