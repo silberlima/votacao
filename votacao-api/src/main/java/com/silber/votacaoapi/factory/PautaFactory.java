@@ -5,6 +5,7 @@ import com.silber.votacaoapi.domain.Pauta;
 
 public class PautaFactory {
 
+    private PautaFactory(){}
     public static Pauta buildFromDto(PautaDto pautaDto){
         return Pauta.builder()
                 .id(pautaDto.getId())

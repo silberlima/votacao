@@ -5,6 +5,7 @@ import com.silber.votacaoapi.domain.Votacao;
 
 public class VotacaoFactory {
 
+    private VotacaoFactory(){}
     public static Votacao buildFrom(VotacaoDto votacaoDto){
         return Votacao.builder()
                 .id(votacaoDto.getId())

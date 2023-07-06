@@ -1,7 +1,6 @@
 package com.silber.votacaoapi.controller;
 
 import com.silber.votacaoapi.controller.dto.PautaDto;
-import com.silber.votacaoapi.domain.Pauta;
 import com.silber.votacaoapi.factory.PautaDtoFactory;
 import com.silber.votacaoapi.factory.PautaFactory;
 import com.silber.votacaoapi.service.PautaService;
@@ -19,7 +18,7 @@ public class PautaController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private PautaDto salvarPauta(@Valid @RequestBody PautaDto pautaDto){
+    public PautaDto salvarPauta(@Valid @RequestBody PautaDto pautaDto){
         var pauta = pautaService.salvar(PautaFactory.buildFromDto(pautaDto));
 
         return PautaDtoFactory.buildFromEntity(pauta);
@@ -27,7 +26,7 @@ public class PautaController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private PautaDto abrirVotacao(@Valid @RequestBody PautaDto pautaDto){
+    public PautaDto abrirVotacao(@Valid @RequestBody PautaDto pautaDto){
         var pauta = pautaService.abrirVotacao(PautaFactory.buildFromDto(pautaDto));
 
         return PautaDtoFactory.buildFromEntity(pauta);

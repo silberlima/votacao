@@ -15,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDateTime;
 
 @SpringBootTest
-public class VotacaoServiceTest {
+class VotacaoServiceTest {
 
     /*O InjectMocks cria uma instância de VotacaoService e coloca os Mocks Do VotacaoRepository dentro*/
     @InjectMocks
