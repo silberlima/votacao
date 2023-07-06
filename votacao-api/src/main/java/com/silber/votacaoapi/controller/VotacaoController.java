@@ -1,5 +1,7 @@
 package com.silber.votacaoapi.controller;
 
+import com.silber.votacaoapi.controller.dto.ContabilizacaoVotoDto;
+import com.silber.votacaoapi.controller.dto.PautaDto;
 import com.silber.votacaoapi.controller.dto.VotacaoDto;
 import com.silber.votacaoapi.factory.VotacaoDtoFactory;
 import com.silber.votacaoapi.factory.VotacaoFactory;
@@ -31,5 +33,10 @@ public class VotacaoController {
             log.error(e.getMessage());
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PostMapping("/contabilizar")
+    public ContabilizacaoVotoDto contabilizarVotos(@RequestBody PautaDto pauta){
+        return votacaoService.contabilizarVotosPorPauta(pauta);
     }
 }
