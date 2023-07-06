@@ -1,7 +1,11 @@
 package com.silber.votacaoapi.service;
 
-import com.silber.votacaoapi.controller.dto.VotacaoDto;
+import com.silber.votacaoapi.controller.dto.ContabilizacaoVotoDto;
+import com.silber.votacaoapi.controller.dto.PautaDto;
+import com.silber.votacaoapi.domain.Pauta;
 import com.silber.votacaoapi.domain.Votacao;
+import com.silber.votacaoapi.factory.PautaDtoFactory;
+import com.silber.votacaoapi.factory.PautaFactory;
 import com.silber.votacaoapi.repository.VotacaoRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +35,28 @@ public class VotacaoService {
         }
 
         return votacaoRepository.save(votacao);
+    }
+
+    public ContabilizacaoVotoDto contabilizarVotosPorPauta(PautaDto pautaDto){
+
+        var pauta = PautaFactory.buildFromDto(pautaDto);
+        var votacoes = votacaoRepository.findByPauta(pauta);
+        ContabilizacaoVotoDto contabilizacaoVotoDto = new ContabilizacaoVotoDto();
+        contabilizacaoVotoDto.setPauta(pautaDto);
+
+        var totalSim = votacoes
+                .stream()
+                .filter(votacao -> votacao.getVoto().equals("SIM"))
+                .count();
+
+        var totalNao = votacoes
+                .stream()
+                .filter(votacao -> votacao.getVoto().equals("NAO"))
+                .count();
+
+        contabilizacaoVotoDto.setVotoSim(totalSim);
+        contabilizacaoVotoDto.setVotoNao(totalNao);
+
+        return contabilizacaoVotoDto;
     }
 }
