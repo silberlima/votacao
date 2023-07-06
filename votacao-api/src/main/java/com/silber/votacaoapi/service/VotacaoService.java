@@ -2,9 +2,7 @@ package com.silber.votacaoapi.service;
 
 import com.silber.votacaoapi.controller.dto.ContabilizacaoVotoDto;
 import com.silber.votacaoapi.controller.dto.PautaDto;
-import com.silber.votacaoapi.domain.Pauta;
 import com.silber.votacaoapi.domain.Votacao;
-import com.silber.votacaoapi.factory.PautaDtoFactory;
 import com.silber.votacaoapi.factory.PautaFactory;
 import com.silber.votacaoapi.repository.VotacaoRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +18,7 @@ public class VotacaoService {
     @Autowired
     VotacaoRepository votacaoRepository;
     @Transactional
-    public Votacao salvar(Votacao votacao) throws Exception{
+    public Votacao salvar(Votacao votacao) throws RuntimeException{
 
 
         if(LocalDateTime.now().isBefore(votacao.getPauta().getAbertura()) || LocalDateTime.now().isAfter(votacao.getPauta().getEncerramento())){

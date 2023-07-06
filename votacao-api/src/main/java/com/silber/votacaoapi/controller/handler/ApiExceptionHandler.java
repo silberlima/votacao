@@ -19,11 +19,7 @@ public class ApiExceptionHandler {
         var errors = new ArrayList<FieldMessage>();
 
         exception.getBindingResult().getFieldErrors()
-                .forEach(
-                        fieldError -> {
-                            errors.add(new FieldMessage(fieldError.getField(), fieldError.getDefaultMessage()));
-                        }
-                );
+                .forEach(fieldError -> errors.add(new FieldMessage(fieldError.getField(), fieldError.getDefaultMessage())));
 
         ErrorResponse error = ErrorResponse.builder()
                 .timestamp(System.currentTimeMillis())

@@ -1,7 +1,6 @@
 package com.silber.votacaoapi.controller;
 
 import com.silber.votacaoapi.controller.dto.AssociadoDto;
-import com.silber.votacaoapi.domain.Associado;
 import com.silber.votacaoapi.factory.AssociadoDtoFactory;
 import com.silber.votacaoapi.factory.AssociadoFactory;
 import com.silber.votacaoapi.service.AssociadoService;

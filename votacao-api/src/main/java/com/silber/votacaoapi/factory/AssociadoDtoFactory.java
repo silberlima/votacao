@@ -1,10 +1,11 @@
 package com.silber.votacaoapi.factory;
 
 import com.silber.votacaoapi.controller.dto.AssociadoDto;
-import com.silber.votacaoapi.controller.dto.PautaDto;
 import com.silber.votacaoapi.domain.Associado;
 
 public class AssociadoDtoFactory {
+
+    private AssociadoDtoFactory(){}
 
     public static AssociadoDto buildFrom(Associado associado){
 

@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class PautaControllerTest {
+class PautaControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -27,7 +27,7 @@ public class PautaControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    public void deve_retornar_nome_tamanho_erro() throws Exception {
+    void deve_retornar_nome_tamanho_erro() throws Exception {
         var pautaDto = new PautaDto( null, "Pauta", LocalDateTime.now(), null);
         mockMvc.perform(
                     post("/api/v1/pauta")

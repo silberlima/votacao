@@ -1,6 +1,5 @@
 package com.silber.votacaoapi.controller.dto;
 
-import com.silber.votacaoapi.domain.Associado;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
