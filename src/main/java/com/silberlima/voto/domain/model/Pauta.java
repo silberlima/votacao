@@ -28,6 +28,9 @@ public class Pauta {
 
     private LocalDateTime dataFechamento;
 
+    @Builder.Default
+    private boolean resultadoEnviado = false;
+
     public boolean isSessaoAberta() {
         return dataFechamento != null && dataFechamento.isAfter(LocalDateTime.now());
     }

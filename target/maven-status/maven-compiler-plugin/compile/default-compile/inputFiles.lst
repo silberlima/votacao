@@ -11,9 +11,12 @@
 /Users/silbersousalima/projects/votacao/src/main/java/com/silberlima/voto/domain/client/UserInfo.java
 /Users/silbersousalima/projects/votacao/src/main/java/com/silberlima/voto/domain/exception/EntidadeNaoEncontradaException.java
 /Users/silbersousalima/projects/votacao/src/main/java/com/silberlima/voto/domain/exception/NegocioException.java
+/Users/silbersousalima/projects/votacao/src/main/java/com/silberlima/voto/domain/messaging/PautaProducer.java
+/Users/silbersousalima/projects/votacao/src/main/java/com/silberlima/voto/domain/messaging/PautaResultadoMessage.java
 /Users/silbersousalima/projects/votacao/src/main/java/com/silberlima/voto/domain/model/Pauta.java
 /Users/silbersousalima/projects/votacao/src/main/java/com/silberlima/voto/domain/model/Voto.java
 /Users/silbersousalima/projects/votacao/src/main/java/com/silberlima/voto/domain/model/VotoEnum.java
 /Users/silbersousalima/projects/votacao/src/main/java/com/silberlima/voto/domain/repository/PautaRepository.java
 /Users/silbersousalima/projects/votacao/src/main/java/com/silberlima/voto/domain/repository/VotoRepository.java
+/Users/silbersousalima/projects/votacao/src/main/java/com/silberlima/voto/domain/scheduler/PautaScheduler.java
 /Users/silbersousalima/projects/votacao/src/main/java/com/silberlima/voto/domain/service/PautaService.java
