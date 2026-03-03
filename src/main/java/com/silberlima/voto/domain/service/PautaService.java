@@ -6,6 +6,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.silberlima.voto.domain.client.CpfValidatorClient;
 import com.silberlima.voto.domain.client.UserInfo;
 import com.silberlima.voto.domain.exception.EntidadeNaoEncontradaException;
@@ -44,6 +49,7 @@ public class PautaService {
     }
 
     @Transactional
+    @CacheEvict(value = "votoCounts", allEntries = true)
     public void votar(Long pautaId, Voto voto) {
         Pauta pauta = buscar(pautaId);
 
@@ -76,10 +82,12 @@ public class PautaService {
         }
     }
 
+    @Cacheable(value = "votoCounts", key = "#pautaId + '-' + #valor")
     public long contarVotos(Long pautaId, VotoEnum valor) {
         return votoRepository.countByPautaIdAndValor(pautaId, valor);
     }
 
+    @Cacheable(value = "votoCounts", key = "#pautaId")
     public long contarTotalVotos(Long pautaId) {
         return votoRepository.countByPautaId(pautaId);
     }

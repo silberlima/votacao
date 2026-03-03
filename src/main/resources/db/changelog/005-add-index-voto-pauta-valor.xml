@@ -5,10 +5,11 @@
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-  <include file="db/changelog/001-create-table-pauta.xml"/>
-  <include file="db/changelog/002-add-column-data-fechamento-pauta.xml"/>
-  <include file="db/changelog/003-create-table-voto.xml"/>
-  <include file="db/changelog/004-add-column-resultado-enviado-pauta.xml"/>
-  <include file="db/changelog/005-add-index-voto-pauta-valor.xml"/>
+  <changeSet id="005-add-index-voto-pauta-valor" author="silberlima">
+    <createIndex tableName="voto" indexName="idx_voto_pauta_valor">
+      <column name="pauta_id"/>
+      <column name="valor"/>
+    </createIndex>
+  </changeSet>
 
 </databaseChangeLog>
