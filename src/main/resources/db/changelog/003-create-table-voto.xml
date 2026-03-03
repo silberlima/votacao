@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+  <changeSet id="003-create-table-voto" author="silberlima">
+    <createTable tableName="voto">
+      <column name="id" type="bigint" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="pauta_id" type="bigint">
+        <constraints nullable="false" foreignKeyName="fk_voto_pauta" referencedTableName="pauta" referencedColumnNames="id"/>
+      </column>
+      <column name="associado_id" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="valor" type="varchar(10)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <addUniqueConstraint tableName="voto" columnNames="pauta_id, associado_id" constraintName="uk_voto_pauta_associado"/>
+  </changeSet>
+
+</databaseChangeLog>

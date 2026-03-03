@@ -7,5 +7,6 @@
 
   <include file="db/changelog/001-create-table-pauta.xml"/>
   <include file="db/changelog/002-add-column-data-fechamento-pauta.xml"/>
+  <include file="db/changelog/003-create-table-voto.xml"/>
 
 </databaseChangeLog>

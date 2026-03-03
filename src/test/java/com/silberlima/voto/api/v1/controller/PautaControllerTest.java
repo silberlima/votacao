@@ -1,9 +1,12 @@
 package com.silberlima.voto.api.v1.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.silberlima.voto.api.v1.dto.VotoInput;
+import com.silberlima.voto.domain.model.VotoEnum;
 import com.silberlima.voto.api.v1.dto.SessaoInput;
 import com.silberlima.voto.api.v1.dto.PautaInput;
 import com.silberlima.voto.domain.model.Pauta;
+import com.silberlima.voto.domain.model.Voto;
 import com.silberlima.voto.domain.service.PautaService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,5 +93,30 @@ class PautaControllerTest {
                 .andExpect(status().isNoContent());
 
         verify(pautaService).abrirSessao(eq(1L), eq(null));
+    }
+
+    @Test
+    void deveVotarComSucesso() throws Exception {
+        VotoInput input = VotoInput.builder()
+                .associadoId("assoc-1")
+                .valor(VotoEnum.SIM)
+                .build();
+
+        mockMvc.perform(post("/v1/pautas/1/votos")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(input)))
+                .andExpect(status().isNoContent());
+
+        verify(pautaService).votar(eq(1L), any(Voto.class));
+    }
+
+    @Test
+    void deveRetornarBadRequestQuandoVotoInvalido() throws Exception {
+        String inputJson = "{\"associadoId\": \"assoc-1\", \"valor\": \"TALVEZ\"}";
+
+        mockMvc.perform(post("/v1/pautas/1/votos")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(inputJson))
+                .andExpect(status().isBadRequest());
     }
 }
