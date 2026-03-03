@@ -1,6 +1,6 @@
 # Sistema de Votação - Cooperativa
 
-API REST para gerenciamento de pautas e sessões de votação em assembleias. Desenvolvida como parte de um desafio técnico para demonstrar competências de engenharia de software de nível sênior.
+API REST para gerenciamento de pautas e sessões de votação em assembleias. 
 
 ## 🚀 Tecnologias Utilizadas
 
