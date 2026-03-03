@@ -1,11 +1,13 @@
 package com.silberlima.voto.api.v1.controller;
 
+import com.silberlima.voto.api.v1.dto.PautaResultadoOutput;
 import com.silberlima.voto.api.v1.dto.VotoInput;
 import com.silberlima.voto.api.v1.dto.SessaoInput;
 import com.silberlima.voto.api.v1.dto.PautaInput;
 import com.silberlima.voto.api.v1.dto.PautaOutput;
 import com.silberlima.voto.domain.model.Pauta;
 import com.silberlima.voto.domain.model.Voto;
+import com.silberlima.voto.domain.model.VotoEnum;
 import com.silberlima.voto.domain.service.PautaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -48,6 +50,32 @@ public class PautaController {
                 .build();
 
         pautaService.votar(id, voto);
+    }
+
+    @GetMapping("/{id}/resultado")
+    public PautaResultadoOutput buscarResultado(@PathVariable Long id) {
+        Pauta pauta = pautaService.buscar(id);
+
+        long votosSim = pautaService.contarVotos(id, VotoEnum.SIM);
+        long votosNao = pautaService.contarVotos(id, VotoEnum.NAO);
+        long totalVotos = pautaService.contarTotalVotos(id);
+
+        String resultado = "Empate";
+        if (votosSim > votosNao) {
+            resultado = "Sim";
+        } else if (votosNao > votosSim) {
+            resultado = "Não";
+        }
+
+        return PautaResultadoOutput.builder()
+                .pautaId(pauta.getId())
+                .titulo(pauta.getTitulo())
+                .votosSim(votosSim)
+                .votosNao(votosNao)
+                .totalVotos(totalVotos)
+                .resultado(resultado)
+                .sessaoAberta(pauta.isSessaoAberta())
+                .build();
     }
 
     private PautaOutput mapToOutput(Pauta pauta) {

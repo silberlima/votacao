@@ -19,6 +19,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -118,5 +119,27 @@ class PautaControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(inputJson))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void deveBuscarResultadoComSucesso() throws Exception {
+        Pauta pauta = Pauta.builder()
+                .id(1L)
+                .titulo("Pauta Teste")
+                .build();
+
+        when(pautaService.buscar(1L)).thenReturn(pauta);
+        when(pautaService.contarVotos(1L, VotoEnum.SIM)).thenReturn(10L);
+        when(pautaService.contarVotos(1L, VotoEnum.NAO)).thenReturn(5L);
+        when(pautaService.contarTotalVotos(1L)).thenReturn(15L);
+
+        mockMvc.perform(get("/v1/pautas/1/resultado"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.pautaId").value(1L))
+                .andExpect(jsonPath("$.titulo").value("Pauta Teste"))
+                .andExpect(jsonPath("$.votosSim").value(10L))
+                .andExpect(jsonPath("$.votosNao").value(5L))
+                .andExpect(jsonPath("$.totalVotos").value(15L))
+                .andExpect(jsonPath("$.resultado").value("Sim"));
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.silberlima.voto.domain.exception.EntidadeNaoEncontradaException;
 import com.silberlima.voto.domain.exception.NegocioException;
+import com.silberlima.voto.domain.model.VotoEnum;
 import com.silberlima.voto.domain.model.Voto;
 import com.silberlima.voto.domain.repository.VotoRepository;
 import java.time.LocalDateTime;
@@ -52,6 +53,14 @@ public class PautaService {
 
         voto.setPauta(pauta);
         votoRepository.save(voto);
+    }
+
+    public long contarVotos(Long pautaId, VotoEnum valor) {
+        return votoRepository.countByPautaIdAndValor(pautaId, valor);
+    }
+
+    public long contarTotalVotos(Long pautaId) {
+        return votoRepository.countByPautaId(pautaId);
     }
 
     public Pauta buscar(Long id) {
