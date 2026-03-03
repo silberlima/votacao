@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.silberlima.voto.domain.exception.EntidadeNaoEncontradaException;
+import com.silberlima.voto.domain.exception.NegocioException;
 import com.silberlima.voto.domain.model.Voto;
 import com.silberlima.voto.domain.repository.VotoRepository;
 import java.time.LocalDateTime;
@@ -27,7 +29,7 @@ public class PautaService {
         Pauta pauta = buscar(id);
 
         if (pauta.getDataFechamento() != null) {
-            throw new RuntimeException("Sessão já foi aberta para esta pauta");
+            throw new NegocioException("Sessão já foi aberta para esta pauta");
         }
 
         long tempoSessao = (minutos == null || minutos <= 0) ? 1 : minutos;
@@ -41,11 +43,11 @@ public class PautaService {
         Pauta pauta = buscar(pautaId);
 
         if (!pauta.isSessaoAberta()) {
-            throw new RuntimeException("Sessão de votação está fechada");
+            throw new NegocioException("Sessão de votação está fechada");
         }
 
         if (votoRepository.existsByPautaIdAndAssociadoId(pautaId, voto.getAssociadoId())) {
-            throw new RuntimeException("Associado já votou nesta pauta");
+            throw new NegocioException("Associado já votou nesta pauta");
         }
 
         voto.setPauta(pauta);
@@ -54,6 +56,6 @@ public class PautaService {
 
     public Pauta buscar(Long id) {
         return pautaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Pauta não encontrada"));
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Pauta não encontrada com o ID: " + id));
     }
 }

@@ -1,10 +1,10 @@
 com/silberlima/voto/api/v1/dto/PautaOutput$PautaOutputBuilder.class
+com/silberlima/voto/domain/model/Pauta.class
+com/silberlima/voto/VotoApplication.class
+com/silberlima/voto/domain/service/PautaService.class
 com/silberlima/voto/api/v1/dto/PautaInput.class
 com/silberlima/voto/domain/repository/PautaRepository.class
 com/silberlima/voto/api/v1/dto/PautaOutput.class
-com/silberlima/voto/domain/model/Pauta.class
-com/silberlima/voto/VotoApplication.class
 com/silberlima/voto/api/v1/controller/PautaController.class
 com/silberlima/voto/domain/model/Pauta$PautaBuilder.class
-com/silberlima/voto/domain/service/PautaService.class
 com/silberlima/voto/api/v1/dto/PautaInput$PautaInputBuilder.class
