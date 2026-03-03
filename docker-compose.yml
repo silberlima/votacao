@@ -36,6 +36,7 @@ services:
 
   kafka:
     image: bitnami/kafka:3.7
+    platform: linux/amd64
     container_name: votacao-kafka
     ports:
       - "9092:9092"
