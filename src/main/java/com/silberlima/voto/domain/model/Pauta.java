@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
 @Builder
@@ -23,4 +25,10 @@ public class Pauta {
 
     @Column(nullable = false)
     private String descricao;
+
+    private LocalDateTime dataFechamento;
+
+    public boolean isSessaoAberta() {
+        return dataFechamento != null && dataFechamento.isAfter(LocalDateTime.now());
+    }
 }

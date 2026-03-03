@@ -2,6 +2,7 @@
 /Users/silbersousalima/projects/votacao/src/main/java/com/silberlima/voto/api/v1/controller/PautaController.java
 /Users/silbersousalima/projects/votacao/src/main/java/com/silberlima/voto/api/v1/dto/PautaInput.java
 /Users/silbersousalima/projects/votacao/src/main/java/com/silberlima/voto/api/v1/dto/PautaOutput.java
+/Users/silbersousalima/projects/votacao/src/main/java/com/silberlima/voto/api/v1/dto/SessaoInput.java
 /Users/silbersousalima/projects/votacao/src/main/java/com/silberlima/voto/domain/model/Pauta.java
 /Users/silbersousalima/projects/votacao/src/main/java/com/silberlima/voto/domain/repository/PautaRepository.java
 /Users/silbersousalima/projects/votacao/src/main/java/com/silberlima/voto/domain/service/PautaService.java

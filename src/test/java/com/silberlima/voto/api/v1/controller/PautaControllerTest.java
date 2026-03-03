@@ -1,6 +1,7 @@
 package com.silberlima.voto.api.v1.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.silberlima.voto.api.v1.dto.SessaoInput;
 import com.silberlima.voto.api.v1.dto.PautaInput;
 import com.silberlima.voto.domain.model.Pauta;
 import com.silberlima.voto.domain.service.PautaService;
@@ -12,6 +13,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -64,5 +67,28 @@ class PautaControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(input)))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void deveAbrirSessaoComSucesso() throws Exception {
+        SessaoInput input = SessaoInput.builder()
+                .minutos(5L)
+                .build();
+
+        mockMvc.perform(post("/v1/pautas/1/abrir-sessao")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(input)))
+                .andExpect(status().isNoContent());
+
+        verify(pautaService).abrirSessao(eq(1L), eq(5L));
+    }
+
+    @Test
+    void deveAbrirSessaoComTempoDefaultQuandoInputNulo() throws Exception {
+        mockMvc.perform(post("/v1/pautas/1/abrir-sessao")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+
+        verify(pautaService).abrirSessao(eq(1L), eq(null));
     }
 }

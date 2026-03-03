@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class PautaService {
@@ -15,5 +17,25 @@ public class PautaService {
     @Transactional
     public Pauta cadastrar(Pauta pauta) {
         return pautaRepository.save(pauta);
+    }
+
+    @Transactional
+    public void abrirSessao(Long id, Long minutos) {
+        Pauta pauta = pautaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pauta não encontrada"));
+
+        if (pauta.getDataFechamento() != null) {
+            throw new RuntimeException("Sessão já foi aberta para esta pauta");
+        }
+
+        long tempoSessao = (minutos == null || minutos <= 0) ? 1 : minutos;
+        pauta.setDataFechamento(LocalDateTime.now().plusMinutes(tempoSessao));
+
+        pautaRepository.save(pauta);
+    }
+
+    public Pauta buscar(Long id) {
+        return pautaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pauta não encontrada"));
     }
 }
